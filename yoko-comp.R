@@ -5,7 +5,7 @@
 if (!exists('vyoko')) source('yokomodel.R')
 
 dat <- list(
-   ##   obs.   off  calc.
+   ##   obs.   off  calc.           ## From Yokoyama (2001)
    Ti=c(5230, -1.5, 4960),
    V= c(5150, -1.5, 4959),
    Cr=c(4520, -1.5, 4864),
@@ -15,21 +15,17 @@ dat <- list(
    Ni=c(4029, -1.1, 4122)
 )
 
-plot(NA, NA,
+plot(NA, NA,                        ## Set up basic plot
    xlab=expression(z[Gamma]~(effective~~valence)),
    ylab=expression(c~(m~s^{-1})),
    xlim=c(1.2,1.5), ylim=c(3500,5500)
 )
 
-for(n in names(dat)){
-   Teta <- uniroot(
-      function(T){0.463-vyoko(0, T, spdat[[n]]$rho, sp=n)$eta},
-      c(0.5,2)*spdat[[n]]$Tm
-   )$root
+for(n in names(dat)){               ## Loop over all metals
    stuff <- vyoko(0, spdat[[n]]$Tm, spdat[[n]]$rho, sp=n)
-   points(spdat[[n]]$zm, dat[[n]][3], pch=19)
-   points(spdat[[n]]$zm, dat[[n]][1], pch=21, col='black')
-   points(
+   points(spdat[[n]]$zm, dat[[n]][3], pch=19)              ## Calculated c table
+   points(spdat[[n]]$zm, dat[[n]][1], pch=21, col='black') ## Reported c table
+   points(                                                 ## Calculate c here
       spdat[[n]]$zm, stuff$c,
       pch=22, col='black', cex=1.5
    )
