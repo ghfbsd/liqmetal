@@ -65,7 +65,6 @@ vyoko <- function(P, T, rho, z=NA, mw=NA, sp='Fe', R=8.3144){
    ## if z, mw not explicitly given, these default to species properties 
    if(is.na(z)) z <- spdat[[sp]]$zm
    if(is.na(mw)) mw <- spdat[[sp]]$mw
-   ff <- function(x,x0,s){1/(1 + exp((x-x0)/s))}
 
    Z <- zmod(T, rho, P, z=z, mw=mw, sp=spdat[[sp]])
    if (Z<=1){
